@@ -1,0 +1,24 @@
+<div class="canvas-box">
+  <div class="canvas-top">
+
+  </div>
+  <div class="canvas-body">
+    <canvas id="main-canvas" class="main-canvas">
+        你的浏览器不支持此功能
+    </canvas>
+  </div>
+  <div class="canvas-bottom">
+    <div>
+      <button id="canvasClear" class="button button-rounded">清空</button>
+    </div>
+    <div>
+      <input id="readyText" maxlength="1" size="1" style="text-align:center" type="text">
+      <button id="bindText" status="wait" class="button button-rounded">绑定</button>
+    </div>
+    <div>
+      <button id="canvasSave" class="button button-rounded" disabled="disabled">保存</button>
+    </div>
+  </div>
+</div>
+
+<%= javascript_pack_tag 'main-canvas' %>
