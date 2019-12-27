@@ -20,6 +20,11 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+/canvas/verifier/*
+!/canvas/verifier/.keep
+/canvas/wait_verifier/*
+!/canvas/wait_verifier/.keep
+/test/canvas
 /public/packs
 /public/packs-test
 /node_modules

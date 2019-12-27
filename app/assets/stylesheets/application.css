@@ -13,14 +13,3 @@
  *= require_tree .
  *= require_self
  */
-
-
-body,a,li,ul,li,div {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-body {
-  height: 100px;
-  background-color: #f0f0f0;
-}

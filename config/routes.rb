@@ -3,5 +3,9 @@ Rails.application.routes.draw do
 
   root to: 'canvas#index'
 
-  resources :canvas, only: [:index, :create]
+  resources :canvas, only: [:index, :create] do
+    collection do
+      get '/:type/:key', to: 'canvas#image'
+    end
+  end
 end

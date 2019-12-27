@@ -33,13 +33,6 @@ function resizeCanvas(canvas) {
 
 resizeCanvas(canvas)
 
-// canvas.addEventListener("click", function(e){
-//   ctx.beginPath();
-//   ctx.arc(e.offsetX , e.offsetY , 15.5, 0, Math.PI * 2, true);
-//   ctx.stroke();
-//
-// })
-
 document.body.addEventListener('touchmove', (e) => {
   e.preventDefault();
 }, { passive: false });
@@ -127,9 +120,20 @@ document.getElementById("bindText").addEventListener("click", function(){
     return
   }
 })
+function isCanvasBlank(canvas) {
+  var blank = document.createElement('canvas');//系统获取一个空canvas对象
+  blank.width = canvas.width;
+  blank.height = canvas.height;
+  return canvas.toDataURL() == blank.toDataURL();//比较值相等则为空
+}
+
 
 document.getElementById("canvasSave").addEventListener("click", function(e){
-  let bytes = canvas.toDataURL("image/bmp")
+  let bytes = canvas.toDataURL()
+  if (isCanvasBlank(canvas)){
+    alert("画布是空的！")
+    return
+  }
   let text = readyText.val()
   $.ajax({
     method: "POST",
@@ -138,8 +142,12 @@ document.getElementById("canvasSave").addEventListener("click", function(e){
       bind_text: text,
       image_bytes: bytes
     },
-    success: function(){
-
+    success: function(response){
+      if ($("#lastInput > img").length >= 2){
+        $("#lastInput > img").last().remove();
+      }
+      $("#lastInput").prepend('<img src="/canvas'+response.path_key+'" style="height:100%" />')
+      clearCanvas()
     }
   })
 })
