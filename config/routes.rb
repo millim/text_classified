@@ -8,4 +8,6 @@ Rails.application.routes.draw do
       get '/:type/:key', to: 'canvas#image'
     end
   end
+
+  resources :dir, only: [:index]
 end

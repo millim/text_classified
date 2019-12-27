@@ -1,7 +1,13 @@
 <div class="canvas-box">
-  <div class="canvas-top" id="lastInput">
+  <div class="canvas-top" >
+    <div id="lastInput" class="canvas-top-list">
+
+    </div>
+    <div class="canvas-top-items">
+      <a class="button button-rounded" href="/dir">待审</a>
+    </div>
   </div>
-  <div class="canvas-body">
+  <div id="canvas-body" class="canvas-body">
     <canvas id="main-canvas" class="main-canvas">
         你的浏览器不支持此功能
     </canvas>
@@ -15,7 +21,7 @@
       <button id="bindText" status="wait" class="button button-rounded">绑定</button>
     </div>
     <div>
-      <button id="canvasSave" class="button button-rounded" disabled="disabled">保存</button>
+      <button id="canvasSave" class="button button-rounded" >保存</button>
     </div>
   </div>
 </div>

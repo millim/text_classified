@@ -31,9 +31,30 @@
 
 .canvas-top {
   @include topAndBottom;
-  display: flex;
-  flex-direction: row;
+}
+
+@mixin button(){
+  font-weight: bold;
+  padding-left: 0px;
+  padding-right: 0px;
+  text-align: center;
+  width: 80%;
+  height: 30%;
+}
+
+.canvas-top-list {
+  height: 100%;
+  flex: 0 0 80%;
+}
+.canvas-top-items {
+  height: 100%;
+  flex: 0 0 20%;
+  flex-flow: column nowrap;
   justify-content: space-around;
+  align-items: center;
+  a {
+    @include button
+  }
 }
 
 .canvas-body {
@@ -54,12 +75,7 @@
     display: flex;
 
     button {
-      font-weight: bold;
-      padding-left: 0px;
-      padding-right: 0px;
-      text-align: center;
-      width: 80%;
-      height: 30%;
+      @include button
     }
 
     input {
