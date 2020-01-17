@@ -1,0 +1,107 @@
+<div class="dir-box">
+  <div class="dir-item-top"></div>
+  <div class="dir-item-top fix">
+    <button onclick="successCommit('all')" class="button button-rounded">全部通过</button>
+    <button onclick="successCommit(null)" class="button button-rounded">标记通过</button>
+    <button onclick="selectCommit(null)" class="button button-rounded">删除标记</button>
+  </div>
+  <% @files.each do |file_name| %>
+    <div class="dir-item" id="<%= file_name%>_box">
+      <div class="dir-item__show">
+        <span class="image">
+          <%= image_tag "/canvas/#{@id}/#{file_name}.png"%>
+        </span>
+      </div>
+      <hr />
+      <div class="buttons">
+        <a id="<%= file_name%>" href="javascript:void(0)" onclick="select('<%= file_name %>')" class="select-blank"></a>
+        <a href="javascript:selectCommit('<%=  file_name %>')" class="round-btn btn-delete">删</a>
+      </div>
+    </div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  let selFiles = [];
+  function select(file_name){
+    $("#"+file_name).css("animation","");
+    if (selFiles.indexOf(file_name) === -1){
+      selFiles.push(file_name)
+      $("#"+file_name).addClass("select-in")
+      $("#"+file_name).css("animation","warn 0.25s linear")
+    }else{
+      selFiles.splice($.inArray(file_name,selFiles),1);
+      $("#"+file_name).removeClass("select-in")
+      $("#"+file_name).css("animation","warn 0.25s reverse")
+    }
+    setTimeout(function(){
+      $("#"+file_name).css("animation","")
+    },250)
+  }
+
+  function removeSelect(){
+    $.each(selFiles, function(i, file){
+      $("#"+file+"_box").remove();
+    })
+    selFiles = [];
+  }
+
+  function successCommit(id){
+    let s = selFiles.join(',')
+    if (id !== null){
+      s = id
+    }
+    let msg = "您真的确定要通过选中/全部图片吗？\n\n请确认！";
+    if (confirm(msg)!==true){
+      return false;
+    }
+    $.ajax({
+      url: '/dir/<%= @id %>/files',
+      type: 'POST',
+      data: {
+        files: s
+      },
+      success: function(){
+        if (id === null){
+          removeSelect()
+        }else{
+          if(s == "all"){
+            window.location.reload();
+          }else{
+            $("#"+id+"_box").remove();
+          }
+        }
+      },
+      error: function(){
+        alert("更新失败，请尝试刷新界面")
+      }
+    })
+  }
+
+  function selectCommit(id){
+    let s = selFiles.join(',')
+    if (id !== null){
+      s = id
+    }
+    let msg = "您真的确定要删除选中图片吗？\n\n请确认！";
+    if (confirm(msg)!==true){
+      return false;
+    }
+    $.ajax({
+      url: '/dir/<%= @id %>/files/select',
+      type: 'DELETE',
+      data: {
+        files: s
+      },
+      success: function(){
+        if (id === null){
+          removeSelect()
+        }else{
+          $("#"+id+"_box").remove();
+        }
+      },
+      error: function(){
+        alert("更新失败，请尝试刷新界面")
+      }
+    })
+  }
+</script>

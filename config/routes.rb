@@ -9,5 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :dir, only: [:index]
+  resources :dir do
+    resources :files
+  end
 end

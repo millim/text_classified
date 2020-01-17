@@ -1,1 +1,16 @@
-index
+<div class="dir-box">
+
+  <% @dirs.each do |dir| %>
+    <div class="dir-item">
+      <div class="dir-item__show">
+        <span class="text"><%= dir[:text] %></span>
+      </div>
+      <hr />
+      <div class="buttons">
+        <%= link_to '详',dir_path(dir[:id]), class: "round-btn btn-default" %>
+        <a href="" class="round-btn btn-delete">删</a>
+      </div>
+    </div>
+  <% end %>
+
+</div>

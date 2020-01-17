@@ -19,7 +19,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-
+sqlite
 /canvas/verifier/*
 !/canvas/verifier/.keep
 /canvas/wait_verifier/*
